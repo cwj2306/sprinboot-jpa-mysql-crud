@@ -29,6 +29,7 @@
 	<button onclick="location.href='/board/updateForm/${board.id}'">수정하기</button>
 	<br>
 	<form:form action="/board/delete/${board.id}" method="DELETE">
+		<input type="hidden" name="username" value="${board.user.username}">
 		<input type="submit" value="삭제하기" />
 	</form:form>
 	

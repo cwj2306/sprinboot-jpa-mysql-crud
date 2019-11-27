@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cos.crud.model.Board;
 import com.cos.crud.model.User;
 import com.cos.crud.repository.BoardRepository;
-import com.cos.crud.utils.Script;
 
 @Controller
 public class BoardController {
@@ -42,40 +41,29 @@ public class BoardController {
 
 	@GetMapping("/board/writeForm")
 	public String boardWriteForm(HttpSession session) {
-		User user = (User)session.getAttribute("user");
-		if(user != null) {
-			return "board/writeForm";
-		}else {
-			return "user/loginForm";
-		}
+		// 인터셉터 처리
+		return "board/writeForm";
 	}
 	
 	@PostMapping("/board/write")
-	public @ResponseBody String boardWrite(Board board, HttpSession session) {
-		// 인터셉터 처리 AOP
+	public String boardWrite(Board board, HttpSession session) {
+		// 인터셉터 처리
 		User user = (User)session.getAttribute("user");
-		if(user != null) {
-			board.setUser(user); //세션에서 유저정보 들고와서 넣기
-			mRepo.save(board);
-			return "redirect:/board/list";
-		}else {
-			return "redirect:/user/loginForm";
-		}
-		
+		board.setUser(user); //세션에서 유저정보 들고와서 넣기
+		mRepo.save(board);
+		return "redirect:/board/list";
 	}
 	
 	@DeleteMapping("/board/delete/{id}")
 	public String boardDelete(@PathVariable int id) {
-		//세션 있어야 함
-		
+		// 인터셉터 처리
 		mRepo.deleteById(id);
 		return "redirect:/board/list";
 	}
 	
 	@GetMapping("/board/updateForm/{id}")
 	public String boardUpdateForm(@PathVariable int id, Model model) {
-		//세션 있어야 함
-		
+		// 인터셉터 처리		
 		Optional<Board> board = mRepo.findById(id);
 		model.addAttribute("board", board.get());
 		return "board/updateForm";
@@ -83,17 +71,12 @@ public class BoardController {
 	
 	@PutMapping("/board/update/{id}")
 	public String boardUpdate(@PathVariable int id, Board board, HttpSession session) {
-		//세션 있어야 함
-
+		// 인터셉터 처리
 		User user = (User)session.getAttribute("user");
-		if(user != null) {
-			board.setUser(user); //세션에서 유저정보 들고와서 넣기
-			board.setId(id);
-			mRepo.save(board);
-			return "redirect:/board/list";
-		}else {
-			return "redirect:/user/loginForm";
-		}
+		board.setUser(user); //세션에서 유저정보 들고와서 넣기
+		board.setId(id);
+		mRepo.save(board);
+		return "redirect:/board/list";
 	}
 	
 }
