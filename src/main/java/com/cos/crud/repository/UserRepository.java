@@ -1,8 +1,7 @@
 package com.cos.crud.repository;
 
-import java.lang.annotation.Native;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.cos.crud.model.User;
 
