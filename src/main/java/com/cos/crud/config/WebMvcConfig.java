@@ -15,11 +15,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addInterceptor(new SessionInterceptor())
 				.addPathPatterns("/board/**")
 				.excludePathPatterns("/board/list")
-				.excludePathPatterns("/board/detail/**")
-				.excludePathPatterns("/board/delete/**");
+				.excludePathPatterns("/board/detail/**");
 		
-		registry.addInterceptor(new SessionInterceptor2())
-				.addPathPatterns("/board/delete/**");	
+		registry.addInterceptor(new AdminInterceptor())
+				.addPathPatterns("/admin/**");
 
 	}
 }

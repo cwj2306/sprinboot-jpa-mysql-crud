@@ -9,7 +9,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.cos.crud.model.User;
 
 @Component
-public class SessionInterceptor2 extends HandlerInterceptorAdapter{
+public class AdminInterceptor extends HandlerInterceptorAdapter{
 
     //컨트롤러보다 먼저 수행되는 메소드
     @Override
@@ -21,14 +21,13 @@ public class SessionInterceptor2 extends HandlerInterceptorAdapter{
             return false;
         }else {
         	User user = (User)session.getAttribute("user");
-        	if(user.getUsername().equals(request.getParameter("username").toString())) {
-        		return true;
-        	}else {
-        		response.sendRedirect("/board/list");
-        		return false;
+        	String role = user.getRole();
+        	if(!role.equals("admin")) {
+        		response.sendRedirect("/user/loginForm");
+                return false;
         	}
         }
 
-        
+        return true;
     }
 }

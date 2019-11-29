@@ -12,6 +12,8 @@
 	<c:if test="${empty sessionScope.user}">
 		로그인 안 됨</br>
 	</c:if>
+	<a href=""></a></br>
+	<a href=""></a></br>
 	<a href="/board/list">게시글 목록</a>
 </body>
 </html>

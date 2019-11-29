@@ -23,10 +23,11 @@ public class BoardService {
 	public void increadCountAndTimeUpdate(int id) {
 		try {
 			mRepo.increaseCount(id);
-			mRepo.timeUpdate(id);	
+			mRepo.timeUpdate(id);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+		
 	}
 	
 	public List<Board> boardList() {
